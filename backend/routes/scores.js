@@ -1,5 +1,6 @@
 import express from 'express';
 import Score from '../models/Score.js';
+import { verifyToken } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -18,21 +19,46 @@ router.get('/:levelId', async (req, res) => {
 
 
 //for posting score
-router.post('/', async (req, res) => {
-    const score = new Score({
-        levelId: req.body.levelId,
-        playerName: req.body.playerName,
-        steps: req.body.steps,
-        time: req.body.time,
-        efficiency: req.body.efficiency
-    });
+router.post('/', verifyToken, async (req, res) => {
+    const { levelId, steps, time, efficiency } = req.body;
+    const playerName = req.user.username;
 
     try {
+        // Check for existing score
+        const existingScore = await Score.findOne({ levelId, playerName });
+
+        if (existingScore) {
+            const isBetter = 
+                efficiency < existingScore.efficiency ||
+                (efficiency === existingScore.efficiency && time < existingScore.time);
+
+            if (isBetter) {
+                existingScore.steps = steps;
+                existingScore.time = time;
+                existingScore.efficiency = efficiency;
+                existingScore.createdAt = Date.now(); // Update timestamp
+                const updatedScore = await existingScore.save();
+                return res.status(200).json(updatedScore);
+            } else {
+                // Keep existing score
+                return res.status(200).json(existingScore);
+            }
+        }
+
+        // Create new score
+        const score = new Score({
+            levelId,
+            playerName,
+            steps,
+            time,
+            efficiency
+        });
+
         const newScore = await score.save();
         res.status(201).json(newScore);
     }
     catch (error) {
-        res.status(400).json({ message: 'Bad Request' });
+        res.status(400).json({ message: 'Bad Request', error: error.message });
     }
 });
 

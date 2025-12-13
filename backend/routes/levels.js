@@ -1,5 +1,6 @@
 import express from 'express';
 import Level from '../models/Level.js';
+import { verifyToken } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -13,11 +14,11 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', verifyToken, async (req, res) => {
     const level = new Level({
         name: req.body.name,
         description: req.body.description,
-        creator: req.body.creator,
+        creator: req.user.username,
         maze: req.body.maze,
         k: req.body.k,
         par: req.body.par
