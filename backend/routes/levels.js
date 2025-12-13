@@ -1,7 +1,7 @@
 import express from 'express';
-const router = express.Router();
-const Level = await import('../models/Level.js');
+import Level from '../models/Level.js';
 
+const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {

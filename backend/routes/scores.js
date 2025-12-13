@@ -1,7 +1,7 @@
 import express from 'express';
-const router = express.Router();
-const Score = await import('../models/Score.js');
+import Score from '../models/Score.js';
 
+const router = express.Router();
 
 //for getting leaderboard particular level ke leye
 router.get('/:levelId', async (req, res) => {
