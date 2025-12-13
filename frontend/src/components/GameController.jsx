@@ -25,7 +25,6 @@ export const GameController = ({ playerName, onExit, onPublish }) => {
     const handleExit = () => {
         setView('editor');
         setGameData(null);
-        if (onExit) onExit();
     };
 
     return (
