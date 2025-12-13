@@ -1,4 +1,4 @@
-import { findPortals } from './mazeUtils';
+import { findPortals } from './mazeUtils.js';
 
 const DIRECTIONS = [
     [-1, 0], [1, 0], [0, -1], [0, 1]

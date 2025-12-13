@@ -1,3 +1,3 @@
-export { createEmptyMaze, findPortals } from './mazeUtils';
-export { solveMaze } from './pathSolver';
-export { validateMap } from './mapValidator';
+export { createEmptyMaze, findPortals } from './mazeUtils.js';
+export { solveMaze } from './pathSolver.js';
+export { validateMap } from './mapValidator.js';

@@ -1,5 +1,5 @@
-import { findPortals } from './mazeUtils';
-import { solveMaze } from './pathSolver';
+import { findPortals } from './mazeUtils.js';
+import { solveMaze } from './pathSolver.js';
 
 export function validateMap(maze, k) {
     const portals = findPortals(maze);
