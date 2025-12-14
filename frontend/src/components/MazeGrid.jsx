@@ -14,12 +14,13 @@ export const MazeGrid = ({
   return (
     <div
       className="bg-white p-1 rounded-xl shadow-lg border border-slate-200 overflow-hidden mx-auto w-full"
-      style={{ maxWidth: `calc(70vh * ${cols / rows})` }}
+      style={{ maxWidth: `calc(85vh * ${cols / rows})` }}
     >
       <div
-        className="grid gap-px bg-slate-200 border border-slate-200 aspect-[1/1]"
+        className="grid gap-px bg-slate-200 border border-slate-200"
         style={{
           gridTemplateColumns: `repeat(${cols}, 1fr)`,
+          aspectRatio: `${cols}/${rows}`,
           touchAction: "none",
         }}
       >
@@ -27,7 +28,7 @@ export const MazeGrid = ({
           row.map((cell, cIndex) => {
             let content = "";
             let bgClass = "bg-white";
-            let textClass = "text-slate-400"; 
+            let textClass = "text-slate-400";
             let scaleClass = "";
             let shadowClass = "";
 
@@ -66,7 +67,7 @@ export const MazeGrid = ({
               scaleClass = "rounded-full scale-75 shadow-sm ring-2 ring-white";
             }
 
-            // vis cells 
+            // vis cells
             if (visitedCells.has(`${cell.r},${cell.c}`)) {
               if (
                 cell.type !== "start" &&
@@ -77,7 +78,7 @@ export const MazeGrid = ({
               }
             }
 
-            // sol overlay 
+            // sol overlay
             const isPath0 = solutionPath0?.some(
               (p) => p.r === rIndex && p.c === cIndex
             );
@@ -120,9 +121,7 @@ export const MazeGrid = ({
                 {overlay}
 
                 {isPlayer && (
-                  <div className="absolute inset-1 bg-indigo-600 rounded-full shadow-lg shadow-indigo-300 transform scale-90 z-10 transition-all duration-200">
-                    <div className="absolute top-1 right-1 w-2 h-2 bg-indigo-400 rounded-full opacity-50"></div>
-                  </div>
+                  <div className="absolute inset-1 bg-indigo-600 rounded-full shadow-lg shadow-indigo-300 transform scale-90 z-10 transition-all duration-200"></div>
                 )}
               </div>
             );
