@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import { ErrorBoundary } from './ErrorBoundary';
-import { useAuth } from '../context/AuthContext';
+import { ErrorBoundary } from './ErrorBoundary.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
 
 export const Layout = () => {
     const { playerName } = useAuth();

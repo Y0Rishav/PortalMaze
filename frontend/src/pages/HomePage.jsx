@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { api } from '../api';
+import { useAuth } from '../context/AuthContext.jsx';
+import { api } from '../api.js';
 
 export const HomePage = () => {
     const [username, setUsername] = useState('');

@@ -1,6 +1,6 @@
 import { useLocation, useNavigate, Navigate } from 'react-router-dom';
-import { GamePlayer } from '../components/GamePlayer';
-import { useAuth } from '../context/AuthContext';
+import { GamePlayer } from '../components/GamePlayer.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
 
 export const GamePage = () => {
     const location = useLocation();

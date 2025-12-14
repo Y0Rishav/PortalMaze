@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { GameController } from '../components/GameController';
-import { useAuth } from '../context/AuthContext';
-import { api } from '../api';
+import { GameController } from '../components/GameController.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
+import { api } from '../api.js';
 
 export const EditorPage = () => {
     const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LevelSelector from '../components/LevelSelector';
-import { api } from '../api';
+import LevelSelector from '../components/LevelSelector.jsx';
+import { api } from '../api.js';
 
 export const LevelSelectPage = () => {
     const [levels, setLevels] = useState([]);

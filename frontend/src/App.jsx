@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { Layout } from './components/Layout';
-import { ProtectedRoute } from './components/ProtectedRoute';
-import { HomePage } from './pages/HomePage';
-import { MenuPage } from './pages/MenuPage';
-import { LevelSelectPage } from './pages/LevelSelectPage';
-import { EditorPage } from './pages/EditorPage';
-import { GamePage } from './pages/GamePage';
+import { AuthProvider } from './context/AuthContext.jsx';
+import { Layout } from './components/Layout.jsx';
+import { ProtectedRoute } from './components/ProtectedRoute.jsx';
+import { HomePage } from './pages/HomePage.jsx';
+import { MenuPage } from './pages/MenuPage.jsx';
+import { LevelSelectPage } from './pages/LevelSelectPage.jsx';
+import { EditorPage } from './pages/EditorPage.jsx';
+import { GamePage } from './pages/GamePage.jsx';
 
 function App() {
     return (

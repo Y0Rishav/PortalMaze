@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import { api } from "../api";
-import { MazeGrid } from "./MazeGrid";
-import { solveMaze } from "../utils/pathSolver";
+import { api } from "../api.js";
+import { MazeGrid } from "./MazeGrid.jsx";
+import { solveMaze } from "../utils/pathSolver.js";
 
 export const GamePlayer = ({
   initialMaze,

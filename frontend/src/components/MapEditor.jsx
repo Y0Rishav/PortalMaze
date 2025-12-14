@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { createEmptyMaze, validateMap } from "../utils/mazeLogic";
-import { MazeGrid } from "./MazeGrid";
+import { createEmptyMaze, validateMap } from "../utils/mazeLogic.js";
+import { MazeGrid } from "./MazeGrid.jsx";
 
 const PORTAL_COLORS = ["blue", "red", "green", "purple"];
 

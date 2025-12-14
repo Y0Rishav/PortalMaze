@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { MapEditor } from "./MapEditor";
-import { GamePlayer } from "./GamePlayer";
-import { validateMap } from "../utils/mazeLogic";
+import { MapEditor } from "./MapEditor.jsx";
+import { GamePlayer } from "./GamePlayer.jsx";
+import { validateMap } from "../utils/mazeLogic.js";
 
 export const GameController = ({ playerName, onExit, onPublish }) => {
   const [view, setView] = useState("editor");
