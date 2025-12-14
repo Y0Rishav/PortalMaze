@@ -3,8 +3,7 @@ export const MazeGrid = ({
   player = null,
   visitedCells = new Set(),
   onCellClick = null,
-  solutionPath0 = null,
-  solutionPathK = null,
+  solutionPath = [],
 }) => {
   if (!maze || !maze.length) return null;
 
@@ -79,22 +78,16 @@ export const MazeGrid = ({
             }
 
             // sol overlay
-            const isPath0 = solutionPath0?.some(
-              (p) => p.r === rIndex && p.c === cIndex
-            );
-            const isPathK = solutionPathK?.some(
+            const isSolution = solutionPath?.some(
               (p) => p.r === rIndex && p.c === cIndex
             );
 
             let overlay = null;
-            if (isPathK)
+            if (isSolution) {
               overlay = (
-                <div className="absolute inset-0 border-2 border-indigo-400 opacity-50 pointer-events-none"></div>
+                <div className="absolute inset-0 border-7 border-green-500 opacity-90 pointer-events-none"></div>
               );
-            if (isPath0)
-              overlay = (
-                <div className="absolute inset-2 bg-emerald-400 rounded-full opacity-40 pointer-events-none"></div>
-              );
+            }
 
             // Player Token
             const isPlayer =

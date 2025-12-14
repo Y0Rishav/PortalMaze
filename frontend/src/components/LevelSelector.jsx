@@ -45,8 +45,7 @@ function LevelSelector({ levels, onSelectLevel, onBack }) {
                     return (
                         <div
                             key={level._id}
-                            className="group bg-white rounded-xl border border-slate-200 p-6 hover:shadow-lg transition-all duration-300 cursor-pointer hover:-translate-y-1 flex flex-col h-full"
-                            onClick={() => onSelectLevel(level)}
+                            className="group bg-white rounded-xl border border-slate-200 p-6 hover:shadow-lg transition-all duration-300 flex flex-col h-full"
                         >
                             <div className="mb-4">
                                 <div className="flex justify-between items-start mb-2">
@@ -62,8 +61,12 @@ function LevelSelector({ levels, onSelectLevel, onBack }) {
                                         <div className="text-slate-900 font-medium">{rows} x {cols}</div>
                                     </div>
                                     <div className="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                                        <div className="text-xs text-slate-500 uppercase font-semibold tracking-wider">Shortest Path</div>
-                                        <div className="text-slate-900 font-medium">{level.par} Steps</div>
+                                        <div className="text-xs text-slate-500 uppercase font-semibold tracking-wider">NWB Path</div>
+                                        <div className="text-slate-900 font-medium">{level.parNWB} Steps</div>
+                                    </div>
+                                    <div className="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                        <div className="text-xs text-slate-500 uppercase font-semibold tracking-wider">WB Path</div>
+                                        <div className="text-slate-900 font-medium">{level.parWB} Steps</div>
                                     </div>
                                     <div className="bg-slate-50 p-3 rounded-lg border border-slate-100">
                                         <div className="text-xs text-slate-500 uppercase font-semibold tracking-wider">Breaks</div>
@@ -75,9 +78,25 @@ function LevelSelector({ levels, onSelectLevel, onBack }) {
                                     </div>
                                 </div>
 
-                                <button className="w-full py-2 bg-indigo-50 text-indigo-700 font-medium rounded-lg group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
-                                    Play Level
-                                </button>
+                                <div className="space-y-2">
+                                    <button 
+                                        onClick={() => onSelectLevel(level, 'nwb')}
+                                        disabled={level.parNWB === 0}
+                                        className={`w-full py-2 font-medium rounded-lg transition-colors ${
+                                            level.parNWB === 0
+                                                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                                : 'bg-blue-600 text-white hover:bg-blue-700'
+                                        }`}
+                                    >
+                                        Play No-Wall-Break
+                                    </button>
+                                    <button 
+                                        onClick={() => onSelectLevel(level, 'wb')}
+                                        className="w-full py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors"
+                                    >
+                                        Play Wall-Break (Max {level.k})
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     );

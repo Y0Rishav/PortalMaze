@@ -70,7 +70,8 @@ export const MapEditor = ({ onPlay, onPublish, onExit }) => {
         description: levelDescription,
         maze,
         k,
-        par: validationResult.kBreakSolution?.pathLength || 0,
+        parNWB: validationResult.zeroBreakSolution?.pathLength || 0,
+        parWB: validationResult.kBreakSolution?.pathLength || 0,
       });
     }
   };
@@ -310,16 +311,6 @@ export const MapEditor = ({ onPlay, onPublish, onExit }) => {
           <MazeGrid
             maze={maze}
             onCellClick={handleCellClick}
-            solutionPath0={
-              validationResult?.valid
-                ? validationResult.zeroBreakSolution?.path
-                : null
-            }
-            solutionPathK={
-              validationResult?.valid
-                ? validationResult.kBreakSolution?.path
-                : null
-            }
           />
         </div>
       </div>

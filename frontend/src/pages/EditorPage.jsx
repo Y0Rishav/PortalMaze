@@ -8,8 +8,9 @@ export const EditorPage = () => {
     const { playerName } = useAuth();
 
     const handlePublish = async (levelData) => {
+        const { par, ...dataWithoutPar } = levelData;
         try {
-            await api.createLevel({ ...levelData, creator: playerName });
+            await api.createLevel({ ...dataWithoutPar, creator: playerName });
             alert('Level published successfully!');
             navigate('/menu');
         } catch (error) {

@@ -76,7 +76,7 @@ export const api = {
     .then(res => res.data),
 
     // Scores
-    getLeaderboard: (levelId) => axiosInstance.get(`/scores/${levelId}`)
+    getLeaderboard: (levelId, mode) => axiosInstance.get(`/scores/${levelId}/${mode}`)
     .then(res => res.data),
     
     submitScore: (score) => axiosInstance.post('/scores', score)

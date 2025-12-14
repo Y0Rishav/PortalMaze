@@ -23,7 +23,7 @@ export const LevelSelectPage = () => {
     return (
         <LevelSelector 
             levels={levels} 
-            onSelectLevel={(level) => navigate('/play', { state: { level } })}
+            onSelectLevel={(level, mode) => navigate('/play', { state: { level, mode } })}
             onBack={() => navigate('/menu')}
         />
     );

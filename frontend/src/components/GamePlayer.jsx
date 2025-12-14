@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { api } from "../api";
 import { MazeGrid } from "./MazeGrid";
+import { solveMaze } from "../utils/pathSolver";
 
 export const GamePlayer = ({
   initialMaze,
@@ -32,21 +33,33 @@ export const GamePlayer = ({
   const [startTime] = useState(() => Date.now());
   const [elapsed, setElapsed] = useState(0);
   const [leaderboard, setLeaderboard] = useState([]);
+  const [solutionPath, setSolutionPath] = useState([]);
 
-  const maxBreaks = mode === "no-break" ? 0 : k;
+  const maxBreaks = mode === "nwb" ? 0 : k;
 
   const loadLeaderboard = useCallback(async () => {
-    if (!levelId) return;
+    if (!levelId || !mode) return;
     try {
-      const response = await api.getLeaderboard(levelId);
+      const response = await api.getLeaderboard(levelId, mode);
       setLeaderboard(response);
     } catch (error) {
       console.error("Error loading leaderboard:", error);
     }
-  }, [levelId]);
+  }, [levelId, mode]);
+
+  const showSolution = () => {
+    const result = solveMaze(initialMaze, maxBreaks);
+    if (result.reachable) {
+      setSolutionPath(result.path);
+    } else {
+      setMessage("No solution found!");
+      setTimeout(() => setMessage(""), 2000);
+    }
+  };
 
   // load leaderboard
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadLeaderboard();
   }, [loadLeaderboard]);
 
@@ -144,6 +157,7 @@ export const GamePlayer = ({
             api
               .submitScore({
                 levelId,
+                mode,
                 playerName,
                 steps,
                 time: elapsed,
@@ -169,6 +183,7 @@ export const GamePlayer = ({
       playerName,
       parSteps,
       loadLeaderboard,
+      mode,
     ]
   );
 
@@ -196,16 +211,23 @@ export const GamePlayer = ({
               {levelName || "Playing Level"}
             </h1>
             <div className="text-sm text-slate-500">
-              {playerName || "Guest"} •{" "}
-              {mode === "no-break" ? "Strategy" : "Breaker"} Mode
+              {playerName || "Guest"}
             </div>
           </div>
-          <button
-            onClick={onExit}
-            className="px-3 py-1 bg-slate-200 hover:bg-slate-300 rounded text-slate-700 text-sm"
-          >
-            Exit
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={showSolution}
+              className="px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded text-white text-sm"
+            >
+              Show Solution
+            </button>
+            <button
+              onClick={onExit}
+              className="px-3 py-1 bg-slate-200 hover:bg-slate-300 rounded text-slate-700 text-sm"
+            >
+              Exit
+            </button>
+          </div>
         </div>
 
         <div className="flex flex-wrap gap-4 bg-slate-50 p-3 rounded-lg border border-slate-200 text-sm justify-center sm:justify-start">
@@ -259,7 +281,7 @@ export const GamePlayer = ({
             </div>
           )}
 
-          <MazeGrid maze={maze} player={player} visitedCells={visitedCells} />
+          <MazeGrid maze={maze} player={player} visitedCells={visitedCells} solutionPath={solutionPath} />
 
           <div className="mt-4 text-xs text-slate-400 text-center">
             Controls: WASD/Arrows to move • Shift+Move to break wall • Enter to
