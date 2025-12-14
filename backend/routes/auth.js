@@ -82,6 +82,7 @@ router.post('/login', async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+            domain: process.env.NODE_ENV === 'production' ? process.env.COOKIE_DOMAIN : undefined,
             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
 
@@ -110,14 +111,26 @@ router.post('/refresh', async (req, res) => {
 
         res.json({ accessToken });
     } catch (error) {
-        res.clearCookie('refreshToken');
+        res.clearCookie('refreshToken', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+            domain: process.env.NODE_ENV === 'production' ? process.env.COOKIE_DOMAIN : undefined,
+            path: '/'
+        });
         return res.json({ accessToken: null, message: 'Invalid refresh token' });
     }
 });
 
 // Logout
 router.post('/logout', (req, res) => {
-    res.clearCookie('refreshToken');
+    res.clearCookie('refreshToken', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+        domain: process.env.NODE_ENV === 'production' ? process.env.COOKIE_DOMAIN : undefined,
+        path: '/'
+    });
     res.json({ message: 'Logged out successfully' });
 });
 
