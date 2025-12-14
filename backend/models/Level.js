@@ -21,7 +21,11 @@ const levelSchema = new mongoose.Schema({
         type: Number,
         required: true 
     }, 
-    par: { 
+    parNWB: { 
+        type: Number,
+        required: true 
+    },
+    parWB: { 
         type: Number,
         required: true 
     },

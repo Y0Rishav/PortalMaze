@@ -5,9 +5,13 @@ import { verifyToken } from '../middleware/auth.js';
 const router = express.Router();
 
 //for getting leaderboard particular level ke leye
-router.get('/:levelId', async (req, res) => {
+router.get('/:levelId/:mode', async (req, res) => {
+    const { mode } = req.params;
+    if (!['nwb', 'wb'].includes(mode)) {
+        return res.status(400).json({ message: 'Invalid mode' });
+    }
     try {
-        const scores = await Score.find({ levelId: req.params.levelId })
+        const scores = await Score.find({ levelId: req.params.levelId, mode })
         .sort({ efficiency: 1, time: 1, steps: 1 })
         .limit(10);
         res.json(scores);
@@ -20,12 +24,16 @@ router.get('/:levelId', async (req, res) => {
 
 //for posting score
 router.post('/', verifyToken, async (req, res) => {
-    const { levelId, steps, time, efficiency } = req.body;
+    const { levelId, mode, steps, time, efficiency } = req.body;
     const playerName = req.user.username;
+
+    if (!['nwb', 'wb'].includes(mode)) {
+        return res.status(400).json({ message: 'Invalid mode' });
+    }
 
     try {
         // Check for existing score
-        const existingScore = await Score.findOne({ levelId, playerName });
+        const existingScore = await Score.findOne({ levelId, playerName, mode });
 
         if (existingScore) {
             const isBetter = 
@@ -49,6 +57,7 @@ router.post('/', verifyToken, async (req, res) => {
         const score = new Score({
             levelId,
             playerName,
+            mode,
             steps,
             time,
             efficiency

@@ -15,13 +15,16 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', verifyToken, async (req, res) => {
+    const { name, description, maze, k, parNWB, parWB } = req.body;
+
     const level = new Level({
-        name: req.body.name,
-        description: req.body.description,
+        name,
+        description,
         creator: req.user.username,
-        maze: req.body.maze,
-        k: req.body.k,
-        par: req.body.par
+        maze,
+        k,
+        parNWB,
+        parWB
     });
 
     try {

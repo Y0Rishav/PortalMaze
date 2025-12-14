@@ -10,6 +10,11 @@ const scoreSchema = new mongoose.Schema({
         type: String,
         required: true 
     },
+    mode: { 
+        type: String, 
+        enum: ['nwb', 'wb'], 
+        required: true 
+    },
     steps: { 
         type: Number,
         required: true 
