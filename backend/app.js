@@ -27,4 +27,9 @@ app.use('/api/levels', (await import('./routes/levels.js')).default);
 
 app.use('/api/scores', (await import('./routes/scores.js')).default);
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+    res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
 export default app;

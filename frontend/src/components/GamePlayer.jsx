@@ -35,21 +35,20 @@ export const GamePlayer = ({
 
   const maxBreaks = mode === "no-break" ? 0 : k;
 
-  // load leaderboard
-  useEffect(() => {
-    if (levelId) {
-      loadLeaderboard();
-    }
-  }, [levelId]);
-
-  const loadLeaderboard = async () => {
+  const loadLeaderboard = useCallback(async () => {
+    if (!levelId) return;
     try {
       const response = await api.getLeaderboard(levelId);
       setLeaderboard(response);
     } catch (error) {
       console.error("Error loading leaderboard:", error);
     }
-  };
+  }, [levelId]);
+
+  // load leaderboard
+  useEffect(() => {
+    loadLeaderboard();
+  }, [loadLeaderboard]);
 
   // timer
   useEffect(() => {
@@ -169,6 +168,7 @@ export const GamePlayer = ({
       levelId,
       playerName,
       parSteps,
+      loadLeaderboard,
     ]
   );
 

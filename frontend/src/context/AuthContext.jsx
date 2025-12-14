@@ -36,13 +36,13 @@ export const AuthProvider = ({ children }) => {
     };
 
     const logout = async () => {
+        setAccessToken(null);
+        setUser(null);
         try {
             await api.logout();
         } catch (error) {
             console.error("Logout error", error);
         }
-        setAccessToken(null);
-        setUser(null);
     };
 
     return (
@@ -60,3 +60,4 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
+
