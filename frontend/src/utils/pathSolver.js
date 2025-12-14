@@ -42,7 +42,8 @@ export function solveMaze(maze, maxBreaks) {
 
         // check if goal reached
         if (r === goal.r && c === goal.c) {
-            return { reachable: true, pathLength: dist, path };
+            const uniqueCells = new Set(path.map(p => `${p.r},${p.c}`)).size - 1;
+            return { reachable: true, pathLength: uniqueCells, path };
         }
 
         // get all possible next pos dir + portal
