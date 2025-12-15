@@ -275,7 +275,7 @@ export const GamePlayer = ({
                   onClick={onExit}
                   className="w-full py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
                 >
-                  Back to Menu
+                  Back to Levels
                 </button>
               </div>
             </div>
@@ -290,11 +290,11 @@ export const GamePlayer = ({
         </div>
 
         {/* Leaderboard */}
-        {leaderboard.length > 0 && (
-          <div className="w-full md:w-64 bg-slate-50 p-4 rounded-lg border border-slate-100 h-fit">
-            <h3 className="font-bold text-slate-700 mb-2 text-sm">
-              Top Scores
-            </h3>
+        <div className="w-full md:w-64 bg-slate-50 p-4 rounded-lg border border-slate-100 h-fit">
+          <h3 className="font-bold text-slate-700 mb-2 text-sm">
+            Top Scores
+          </h3>
+          {leaderboard.length > 0 ? (
             <ol className="space-y-2 text-sm">
               {leaderboard.slice(0, 5).map((score, i) => (
                 <li key={i} className="flex justify-between text-slate-600">
@@ -307,8 +307,12 @@ export const GamePlayer = ({
                 </li>
               ))}
             </ol>
-          </div>
-        )}
+          ) : (
+            <div className="text-slate-400 text-sm text-center py-4">
+              No one has played this level yet.
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

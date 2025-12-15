@@ -29,7 +29,7 @@ export const GamePage = () => {
             levelId={level._id}
             playerName={playerName}
             levelName={`${level.name} (${modeName})`}
-            onExit={() => navigate('/menu')}
+            onExit={() => navigate('/levels')}
         />
     );
 };
