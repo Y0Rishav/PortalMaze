@@ -13,7 +13,7 @@ export const MazeGrid = ({
   return (
     <div
       className="bg-white p-1 rounded-xl shadow-lg border border-slate-200 overflow-hidden mx-auto w-full"
-      style={{ maxWidth: `calc(85vh * ${cols / rows})` }}
+      style={{ maxWidth: `calc(64vh * ${cols / rows})` }}
     >
       <div
         className="grid gap-px bg-slate-200 border border-slate-200"

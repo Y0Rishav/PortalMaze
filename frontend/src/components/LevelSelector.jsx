@@ -68,10 +68,6 @@ function LevelSelector({ levels, onSelectLevel, onBack }) {
                                         <div className="text-xs text-slate-500 uppercase font-semibold tracking-wider">WB Path</div>
                                         <div className="text-slate-900 font-medium">{level.parWB} Steps</div>
                                     </div>
-                                    <div className="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                                        <div className="text-xs text-slate-500 uppercase font-semibold tracking-wider">Breaks</div>
-                                        <div className="text-slate-900 font-medium">{level.k} Walls</div>
-                                    </div>
                                     <div className="bg-slate-50 p-3 rounded-lg border border-slate-100 flex flex-col justify-center">
                                         <div className="text-xs text-slate-500 uppercase font-semibold tracking-wider">Creator</div>
                                         <div className="text-slate-900 font-medium truncate" title={level.creator}>{level.creator || 'Unknown'}</div>

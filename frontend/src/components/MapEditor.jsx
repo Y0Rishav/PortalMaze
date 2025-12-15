@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { createEmptyMaze, validateMap } from "../utils/mazeLogic.js";
+import { GenerateRandom } from "./GenerateRandom.jsx";
 import { MazeGrid } from "./MazeGrid.jsx";
 
 const PORTAL_COLORS = ["blue", "red", "green", "purple"];
 
-export const MapEditor = ({ onPlay, onPublish, onExit }) => {
+export const MapEditor = ({onPublish, onExit }) => {
   const [rows, setRows] = useState(10);
   const [cols, setCols] = useState(10);
   const [maze, setMaze] = useState(() => createEmptyMaze(10, 10));
@@ -16,8 +17,8 @@ export const MapEditor = ({ onPlay, onPublish, onExit }) => {
   const [levelDescription, setLevelDescription] = useState("");
 
   const handleDimensionChange = (r, c) => {
-    const nr = Math.max(5, Math.min(30, Number(r)));
-    const nc = Math.max(5, Math.min(30, Number(c)));
+    const nr = Math.max(2, Math.min(30, Number(r)));
+    const nc = Math.max(2, Math.min(30, Number(c)));
     setRows(nr);
     setCols(nc);
     setMaze(createEmptyMaze(nr, nc));
@@ -76,6 +77,14 @@ export const MapEditor = ({ onPlay, onPublish, onExit }) => {
     }
   };
 
+  const generateRandomLevel = () => {
+    const newMaze = GenerateRandom.generateMaze(rows, cols);
+    setMaze(newMaze);
+    setValidationResult(null);
+    setLevelName("");
+    setLevelDescription("");
+  };
+
   return (
     <div className="w-full max-w-[1600px] mx-auto p-4 flex flex-col gap-6">
       <div className="flex justify-between items-center border-b pb-4">
@@ -83,14 +92,22 @@ export const MapEditor = ({ onPlay, onPublish, onExit }) => {
           <h1 className="text-2xl font-bold text-slate-800">Level Editor</h1>
           <p className="text-slate-500 text-sm">Design your level</p>
         </div>
-        {onExit && (
+        <div className="flex gap-2">
           <button
-            onClick={onExit}
-            className="px-3 py-1 bg-slate-200 hover:bg-slate-300 rounded text-slate-700 text-sm"
+            onClick={generateRandomLevel}
+            className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm"
           >
-            Exit
+            Generate Random
           </button>
-        )}
+          {onExit && (
+            <button
+              onClick={onExit}
+              className="px-3 py-1 bg-slate-200 hover:bg-slate-300 rounded text-slate-700 text-sm"
+            >
+              Exit
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="flex flex-col md:flex-row gap-8 items-start">
@@ -260,26 +277,6 @@ export const MapEditor = ({ onPlay, onPublish, onExit }) => {
 
             {validationResult?.valid && (
               <div className="space-y-3 pt-3 mt-3 border-t border-slate-200 animate-in fade-in">
-                {onPlay && (
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() =>
-                        onPlay(maze, k, "no-break", levelName || "Test")
-                      }
-                      className="flex-1 py-1 bg-white border border-slate-300 rounded text-xs hover:bg-slate-50"
-                    >
-                      Test Normal
-                    </button>
-                    <button
-                      onClick={() =>
-                        onPlay(maze, k, "wall-break", levelName || "Test")
-                      }
-                      className="flex-1 py-1 bg-white border border-slate-300 rounded text-xs hover:bg-slate-50"
-                    >
-                      Test Break
-                    </button>
-                  </div>
-                )}
                 <input
                   type="text"
                   placeholder="Level Name"
@@ -308,10 +305,7 @@ export const MapEditor = ({ onPlay, onPublish, onExit }) => {
 
         {/* Right Column: Maze Grid */}
         <div className="flex-1 w-full order-1 md:order-2">
-          <MazeGrid
-            maze={maze}
-            onCellClick={handleCellClick}
-          />
+          <MazeGrid maze={maze} onCellClick={handleCellClick} />
         </div>
       </div>
     </div>
