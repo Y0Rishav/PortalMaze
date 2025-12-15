@@ -122,4 +122,4 @@ portalmaze/
 ```
 
 ## Video Demo
-[Coming soon - Screen recording of gameplay and features]
+(https://youtu.be/VGfTo6hqRwk)
