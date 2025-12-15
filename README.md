@@ -36,7 +36,7 @@ A single-player grid-based maze puzzle game with teleportation portals and strat
 
 2. **Environment Setup** (backend/.env):
    ```
-   MONGO_URI=your_mongodb_uri
+   MONGODB_URI=your_mongodb_uri
    JWT_SECRET=your_jwt_secret
    JWT_REFRESH_SECRET=your_refresh_secret
    ALLOWED_ORIGINS=http://localhost:5173
